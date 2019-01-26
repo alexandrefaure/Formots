@@ -1,0 +1,189 @@
+﻿<controls:MetroWindow x:Class="FormotsGUI.Windows.LoginWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      x:Name="Login_Window"
+                      dialogs1:DialogParticipation.Register="{Binding}"
+                      xmlns:viewModels="clr-namespace:FormotsGUI.ViewModels"
+                      xmlns:dialogs1="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:wpf="clr-namespace:Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF;assembly=Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF"
+                      xmlns:dto="clr-namespace:FormotsCommon.DTO;assembly=FormotsCommon"
+                      Title="Première connexion"
+                      Background="LightYellow"
+                      VerticalAlignment="Center"
+                      Width="Auto" Height="Auto" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="boolToVis" />
+            <viewModels:LoginWindowViewModel x:Key="vm" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <StackPanel
+        Margin="10 10 10 10"
+        Width="350"
+        VerticalAlignment="Top">
+        <Label DockPanel.Dock="Top"
+               Margin="5 0"
+               Content="{Binding ConnectionTitleFormText}"
+               FontFamily="Tahoma"
+               FontWeight="Bold" FontSize="20" />
+        <Label DockPanel.Dock="Top"
+               Margin="5 20"
+               Content="Veuillez vous enregistrer"
+               Visibility="{Binding IsFirstLogin, 
+            Converter={StaticResource boolToVis}}"
+               FontSize="14" />
+        <DockPanel>
+            <TextBox DockPanel.Dock="Top"
+                     Name="LastNameTextbox"
+                     Margin="5 10"
+                     controls:TextBoxHelper.Watermark="Nom"
+                     Visibility="{Binding IsFirstLogin, 
+            Converter={StaticResource boolToVis}}">
+                <TextBox.Text>
+                    <Binding Path="LoginUser.LastName"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <wpf:ValidatorRule
+                                SourceType="{x:Type dto:UserDto}"
+                                SourcePropertyName="LastName"
+                                ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                        <!--IMPORTANT : ValidatesOnTargetUpdated permet de valider le controle au chargement-->
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox DockPanel.Dock="Top"
+                     Name="FirstNameTextbox"
+                     Margin="5 10"
+                     controls:TextBoxHelper.Watermark="Prénom"
+                     Visibility="{Binding IsFirstLogin, 
+            Converter={StaticResource boolToVis}}">
+                <TextBox.Text>
+                    <Binding Path="LoginUser.FirstName"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <wpf:ValidatorRule
+                                SourceType="{x:Type dto:UserDto}"
+                                SourcePropertyName="FirstName"
+                                ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox DockPanel.Dock="Top"
+                     Name="LoginTextbox"
+                     Margin="5 10"
+                     controls:TextBoxHelper.Watermark="Login">
+                <TextBox.Text>
+                    <Binding Path="LoginUser.Login"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <wpf:ValidatorRule
+                                SourceType="{x:Type dto:UserDto}"
+                                SourcePropertyName="Login"
+                                ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <PasswordBox DockPanel.Dock="Top"
+                         Name="PasswordTextbox"
+                         Margin="5 10"
+                         PasswordChar="*"
+                         controls:TextBoxHelper.Watermark="Mot de passe"
+                         PasswordChanged="PasswordTextbox_TextChanged" />
+            <PasswordBox DockPanel.Dock="Top"
+                         Name="ConfirmPasswordTextbox"
+                         Margin="5 10"
+                         PasswordChar="*"
+                         controls:TextBoxHelper.Watermark="Confirmer mot de passe"
+                         Visibility="{Binding IsFirstLogin, 
+            Converter={StaticResource boolToVis}}"
+                         PasswordChanged="PasswordTextbox_TextChanged" />
+        </DockPanel>
+
+        <Grid DockPanel.Dock="Top"
+              Margin="0 20"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0"
+                    Grid.Column="0"
+                    Name="SaveButton"
+                    Margin="2 0"
+                    Command="{Binding SaveConnectCommand}"
+                    CommandParameter="{Binding ElementName=Login_Window}"
+                    FontSize="16">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding SaveConnectButtonText}" Padding="0" />
+                    <Image Margin="{StaticResource IconMargin}"
+                           Width="{StaticResource IconButtonSize}"
+                           Source="{StaticResource LoginIcon}" />
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=FirstNameTextbox}"
+                                        Value="False" />
+                                    <Condition
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=LastNameTextbox}"
+                                        Value="False" />
+                                    <Condition
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=LoginTextbox}"
+                                        Value="False" />
+                                    <Condition
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=PasswordTextbox}"
+                                        Value="False" />
+                                    <Condition
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=ConfirmPasswordTextbox}"
+                                        Value="PasswordTextbox" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Grid.Row="0"
+                    Grid.Column="3"
+                    Margin="2 0"
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding ElementName=Login_Window}"
+                    FontSize="16">
+                <StackPanel Orientation="Horizontal">
+                    <Label Padding="0">Annuler</Label>
+                    <Image Margin="{StaticResource IconMargin}"
+                           Width="{StaticResource IconButtonSize}"
+                           Source="{StaticResource CancelIcon}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </StackPanel>
+</controls:MetroWindow>

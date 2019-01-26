@@ -1,0 +1,219 @@
+﻿<controls:MetroWindow x:Class="FormotsGUI.Pages.Dossier.DossierEditForm"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:wpf="clr-namespace:Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF;assembly=Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF"
+                      xmlns:dto="clr-namespace:FormotsCommon.DTO;assembly=FormotsCommon"
+                      xmlns:userControls="clr-namespace:FormotsGUI.UserControls"
+                      dialogs:DialogParticipation.Register="{Binding}"
+                      mc:Ignorable="d"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+                      WindowStartupLocation="CenterScreen"
+                      VerticalAlignment="Center"
+                      Width="800" Height="Auto"
+                      SizeToContent="Height"
+                      Title="{Binding WindowTitle}"
+                      Name="Dossier_AddWindow">
+
+    <!--<Window.Resources>
+        <ResourceDictionary>
+            <utils:BoolInverterConverter x:Key="BoolInverterConverter" />
+            <utils:IsNullToBoolConverter x:Key="IsNullToBoolConverter" />
+        </ResourceDictionary>
+    </Window.Resources>-->
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel
+        Background="{DynamicResource ValidationBrush2}">
+        
+        <!--Bouton d'ouverture de la fiche MA complète-->
+            <WrapPanel DockPanel.Dock="Top"
+                       Name="LayoutRoot">
+                <Button Width="134"
+                        Margin="5 5 0 5"
+                        Name="EditCommandButton"
+                        Command="{Binding ConsultMaCommand}">
+                    <StackPanel Orientation="Horizontal">
+                    <Label Padding="0">Consulter fiche MA</Label>
+                        <Image Margin="{StaticResource IconMargin}"
+                               Width="{StaticResource IconButtonSize}"
+                               Source="{StaticResource EditIcon}" />
+                    </StackPanel>
+                </Button>
+            </WrapPanel>
+        
+        <!--Résumé fiche MA-->
+        <GroupBox Header="Résumé fiche MA"
+                  IsEnabled="False">
+            <Grid DataContext="{Binding DossierDtoToAddOrUpdate.MedecinAppelantDto, Mode=TwoWay}"
+                  Margin="10 10 10 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Nom" />
+                <TextBox Name="NomTextbox"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Margin="10 10 30 10">
+                    <TextBox.Text>
+                        <Binding Path="Nom"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <wpf:ValidatorRule
+                                    SourceType="{x:Type dto:MedecinAppelantDto}"
+                                    SourcePropertyName="Nom"
+                                    ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                            <!--IMPORTANT : ValidatesOnTargetUpdated permet de valider le controle au chargement-->
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalAlignment="Center"
+                           Text="Prénom" />
+                <TextBox Name="PrenomTextbox"
+                         Grid.Row="0"
+                         Grid.Column="3"
+                         Margin="10 10 30 10">
+                    <TextBox.Text>
+                        <Binding Path="Prenom"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <wpf:ValidatorRule
+                                    SourceType="{x:Type dto:MedecinAppelantDto}"
+                                    SourcePropertyName="Prenom"
+                                    ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--<TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Âge" />
+                <TextBox Name="AgeTextbox"
+                         Grid.Row="1"
+                         IsEnabled="False"
+                         Grid.Column="1"
+                         Margin="10 10 30 10">
+                    <TextBox.Text>
+                        <Binding Path="Age"
+                                 UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox.Text>
+                </TextBox>-->
+            </Grid>
+        </GroupBox>
+        
+        <!--FORMULAIRES-->
+        <GroupBox Header="Formulaires">
+            <StackPanel>
+                <userControls:SearchListPanel
+                    LabelName="Gestion des formulaires"
+                    LabelVisibility="False"
+                    EditCommand="{Binding EditFormulaireCommand}"
+                    AddCommand="{Binding AddFormulaireCommand}"
+                    DeleteCommand="{Binding DeleteFormulaireCommand}" />
+                <!--<DataGrid 
+                    ItemsSource="{Binding FormulairesList}"
+                    AutoGenerateColumns="False"
+                    SelectedValue="{Binding SelectedFormulaire}"
+                    CanUserAddRows="false">-->
+                    <DataGrid 
+                        ItemsSource="{Binding FormulairesList}"
+                        SelectedValue="{Binding SelectedFormulaire}"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True"
+                        CanUserAddRows="false">
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditFormulaireCommand}"/>
+                    </DataGrid.InputBindings>
+                    <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" 
+                                                Header="Date de création" 
+                                                Binding="{Binding DtCreation}" />
+                        <DataGridTextColumn Width="*" 
+                                            Header="Type" 
+                                            Binding="{Binding Type.Code}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <controls:ProgressRing IsActive="{Binding ShowProgressBar}" />
+            </StackPanel>
+        </GroupBox>
+
+        <!--Boutons de sauvegarde et d'annulation-->
+        <WrapPanel Margin="5 20"
+                   HorizontalAlignment="Center">
+            <!--<Button Name="SaveUserButton"
+                    Grid.Column="0" Width="100"
+                    Margin="0 5 0 5"
+                    Visibility="{Binding IsSaveButtonVisible}"
+                    Command="{Binding SaveDossierCommand}"
+                    CommandParameter="{Binding ElementName=Dossier_AddWindow}">
+                <StackPanel Orientation="Horizontal">
+                    <Label Padding="0">Enregistrer</Label>
+                    <Image Margin="{StaticResource IconMargin}"
+                           Width="{StaticResource IconButtonSize}"
+                           Source="{StaticResource SaveIcon}" />
+                </StackPanel>
+                --><!--<Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition 
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=FirstNameTextbox}" 
+                                        Value="False"/>
+                                    <Condition 
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=LastNameTextbox}" 
+                                        Value="False"/>
+                                    <Condition 
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=LoginTextbox}" 
+                                        Value="False"/>
+                                    <Condition 
+                                        Binding="{Binding 
+                                        Path=(Validation.HasError), 
+                                        ElementName=PasswordTextbox}" 
+                                        Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>--><!--
+            </Button>-->
+            <Button Grid.Column="1" Width="100"
+                    Margin="10 5 0 5"
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=Dossier_AddWindow}">
+                <StackPanel Orientation="Horizontal">
+                    <Label Padding="0">Fermer</Label>
+                    <Image Margin="{StaticResource IconMargin}"
+                           Width="{StaticResource IconButtonSize}"
+                           Source="{StaticResource CancelIcon}" />
+                </StackPanel>
+            </Button>
+        </WrapPanel>
+    </StackPanel>
+    </ScrollViewer>
+</controls:MetroWindow>

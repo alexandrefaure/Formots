@@ -1,0 +1,18 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/FormotsBLL/bin/Debug
+/FormotsBLL/obj
+/FormotsBLL.Tests/bin/Debug
+/FormotsBLL.Tests/obj
+/FormotsCommon/bin/Debug
+/FormotsCommon/obj
+/FormotsDAL/bin/Debug
+/FormotsDAL/obj
+/FormotsGUI/bin/Debug
+/FormotsGUI/obj
+/FormotsGUI.Tests/obj
+/packages
+/.vs
+/BuildProcessTemplates

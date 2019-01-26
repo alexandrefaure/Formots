@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="FormotsGUI.Pages.AboutPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodel="clr-namespace:FormotsGUI.ViewModels"
+             Width="Auto" Height="Auto">
+
+    <UserControl.Resources>
+        <!--<viewmodel:ViewModel x:Key="vm"></viewmodel:ViewModel>-->
+        <viewmodel:SettingsViewModel x:Key="vm"></viewmodel:SettingsViewModel>
+    </UserControl.Resources>
+
+    <!--<Grid>-->
+    <GroupBox Header="A propos">
+        <DockPanel HorizontalAlignment="Left" >
+            <Image 
+                DockPanel.Dock="Top"
+                Source="{StaticResource CSTLogo}"
+                Stretch="None"
+                />
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Logiciel MOTS"></TextBlock>
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Version 3.0"></TextBlock>
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Copyright © 2017 CST Microsystems"></TextBlock>
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Tous droits réservés"></TextBlock>
+            <TextBlock DockPanel.Dock="Top"
+                       Text="{Binding LicenceExpirationDate}"></TextBlock>
+
+        </DockPanel>
+    </GroupBox>
+</UserControl>

@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="appelant_medecins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DateNaissance" Type="datetime" Nullable="false" />
+          <Property Name="Genre" Type="bit" Nullable="false" />
+          <Property Name="NumeroTelephonePortable" Type="nvarchar" MaxLength="100" />
+          <Property Name="NumeroTelephoneFixe" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="100" />
+          <Property Name="TiersNom" Type="nvarchar" MaxLength="100" />
+          <Property Name="TiersTelephone" Type="nvarchar" MaxLength="100" />
+          <Property Name="TiersEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="TiersLienParente" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="dossiers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMedecinAppelant" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="NumeroAnonymatGlobal" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="formulaire_act">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDossier" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="DtDebutEntretien" Type="datetime" />
+          <Property Name="DtFinEntretien" Type="datetime" />
+          <Property Name="Dt1ErContactMaAccueil" Type="datetime" />
+          <Property Name="Dt1ErContactMeMa" Type="datetime" />
+          <Property Name="DtMeAccueil" Type="datetime" />
+          <Property Name="Jour1ErContact" Type="nvarchar" MaxLength="10" />
+          <Property Name="DepartementExerciceMa" Type="nvarchar" MaxLength="100" />
+          <Property Name="SuggestionAppelMots" Type="int" />
+          <Property Name="AutreSuggestionAppelMots" Type="nvarchar" MaxLength="100" />
+          <Property Name="CommentairesLibres" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ContactPar1ErContactMaAccueil" Type="int" />
+          <Property Name="ContactPar1ErContactMeMa" Type="int" />
+        </EntityType>
+        <EntityType Name="formulaire_cda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDossier" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="MotifAppelInitial" Type="nvarchar" MaxLength="100" />
+          <Property Name="MotifAppelInitialAutre" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProblematiqueComplementaire" Type="bit" />
+          <Property Name="TypeProblematiqueComplementaire" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeProblematiqueComplementaireAutre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Addictions" Type="nvarchar" MaxLength="100" />
+          <Property Name="AntecedentsPersonnels" Type="nvarchar" MaxLength="100" />
+          <Property Name="AntecedentsFamiliauxTa" Type="bit" />
+          <Property Name="CommentairesLibres" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="formulaire_cfp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDossier" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="StatutCivil" Type="int" />
+          <Property Name="RevenusSeulsFoyer" Type="bit" />
+          <Property Name="PersonnesACharge" Type="bit" />
+          <Property Name="GrossesseEnCours" Type="bit" />
+          <Property Name="EnfantsMineurs" Type="bit" />
+          <Property Name="NombreEnfantsMineurs" Type="int" />
+          <Property Name="ExerciceProfessionnel" Type="int" />
+          <Property Name="PrecisionsExerciceProfessionnel" Type="int" />
+          <Property Name="FonctionHospitaliere" Type="int" />
+          <Property Name="Specialite" Type="int" />
+          <Property Name="NombreHeuresHebdoMoyen" Type="int" />
+          <Property Name="CongesAnnuels" Type="int" />
+          <Property Name="ActivitesFormation" Type="bit" />
+          <Property Name="SavoirDireNon" Type="bit" />
+          <Property Name="AutreMedecinTraitant" Type="bit" />
+          <Property Name="Automedication" Type="bit" />
+          <Property Name="SuiviDepistage" Type="bit" />
+          <Property Name="ActivitesLoisirs" Type="nvarchar" MaxLength="100" />
+          <Property Name="PrevoyanceAssurance" Type="bit" />
+          <Property Name="CarmfAJour" Type="bit" />
+          <Property Name="UrssafAJour" Type="bit" />
+          <Property Name="OrdreMedecinAJour" Type="bit" />
+          <Property Name="CommentairesLibres" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="formulaire_ecv">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDossier" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="DtEvaluation" Type="datetime" />
+          <Property Name="PriseTraitementPsychotrope" Type="bit" />
+          <Property Name="AutrePrescriptionPsychotropes" Type="bit" />
+          <Property Name="ContinuerPratiquerRythme" Type="bit" />
+          <Property Name="DtMbi" Type="datetime" />
+          <Property Name="ScoreMbiEpuisementEmotionnel" Type="int" />
+          <Property Name="EpuisementEmotionnel" Type="nvarchar" MaxLength="100" />
+          <Property Name="ScoreMbiDepersonnalisation" Type="int" />
+          <Property Name="Depersonnalisation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ScoreMbiAccomplissementPersonnel" Type="int" />
+          <Property Name="AccomplissementPersonnel" Type="nvarchar" MaxLength="100" />
+          <Property Name="DtRud" Type="datetime" />
+          <Property Name="NiveauRisqueRud" Type="int" />
+          <Property Name="EvaluationRisqueRud" Type="nvarchar" MaxLength="100" />
+          <Property Name="CommentairesLibres" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ActionsProposeesRud" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="formulaire_seo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDossier" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="NumeroEntretien" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateEntretien" Type="datetime" />
+          <Property Name="TypeEntretien" Type="int" />
+          <Property Name="DureeEntretien" Type="int" />
+          <Property Name="TravailConnexeEntretien" Type="bit" />
+          <Property Name="DureeDeplacement" Type="int" />
+          <Property Name="RechercheDocumentation" Type="int" />
+          <Property Name="ContactsExternesMots" Type="int" />
+          <Property Name="AutreTravailConnexe" Type="nvarchar" MaxLength="100" />
+          <Property Name="AppelContactInterneMots" Type="nvarchar" MaxLength="100" />
+          <Property Name="MotifAppelContactInterneMots" Type="nvarchar" MaxLength="100" />
+          <Property Name="Orientations" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrientationAutre" Type="nvarchar" MaxLength="100" />
+          <Property Name="ArretMaladiePreconise" Type="bit" />
+          <Property Name="CommentairesLibres" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="formulaire_sfa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDossier" Type="int" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="DateBilanSynthese" Type="datetime" />
+          <Property Name="DureeJourDepuis1ErContact" Type="int" />
+          <Property Name="NombreEntretiensDepuis1ErContact" Type="int" />
+          <Property Name="TempsTotalEnEntretiens" Type="float" />
+          <Property Name="OrientationsMisesEnOeuvre" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrientationsMisesEnOeuvreAutre" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrientationsIdentifiees1ErEntretien" Type="nvarchar" MaxLength="100" />
+          <Property Name="CommentairesLibres" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="global_users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <Association Name="FK_IdDossier_Act">
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="1" />
+          <End Role="formulaire_act" Type="Self.formulaire_act" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_act">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Cda">
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="1" />
+          <End Role="formulaire_cda" Type="Self.formulaire_cda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_cda">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Cfp">
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="1" />
+          <End Role="formulaire_cfp" Type="Self.formulaire_cfp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_cfp">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Ecv">
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="1" />
+          <End Role="formulaire_ecv" Type="Self.formulaire_ecv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_ecv">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Seo">
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="1" />
+          <End Role="formulaire_seo" Type="Self.formulaire_seo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_seo">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Sfa">
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="1" />
+          <End Role="formulaire_sfa" Type="Self.formulaire_sfa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_sfa">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedecinAppelantId">
+          <End Role="appelant_medecins" Type="Self.appelant_medecins" Multiplicity="1" />
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="appelant_medecins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="dossiers">
+              <PropertyRef Name="IdMedecinAppelant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserId">
+          <End Role="global_users" Type="Self.global_users" Multiplicity="1" />
+          <End Role="dossiers" Type="Self.dossiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="global_users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="dossiers">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="appelant_medecins" EntityType="Self.appelant_medecins" store:Type="Tables" />
+          <EntitySet Name="dossiers" EntityType="Self.dossiers" store:Type="Tables" />
+          <EntitySet Name="formulaire_act" EntityType="Self.formulaire_act" store:Type="Tables" />
+          <EntitySet Name="formulaire_cda" EntityType="Self.formulaire_cda" store:Type="Tables" />
+          <EntitySet Name="formulaire_cfp" EntityType="Self.formulaire_cfp" store:Type="Tables" />
+          <EntitySet Name="formulaire_ecv" EntityType="Self.formulaire_ecv" store:Type="Tables" />
+          <EntitySet Name="formulaire_seo" EntityType="Self.formulaire_seo" store:Type="Tables" />
+          <EntitySet Name="formulaire_sfa" EntityType="Self.formulaire_sfa" store:Type="Tables" />
+          <EntitySet Name="global_users" EntityType="Self.global_users" store:Type="Tables" />
+          <AssociationSet Name="FK_IdDossier_Act" Association="Self.FK_IdDossier_Act">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_act" EntitySet="formulaire_act" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Cda" Association="Self.FK_IdDossier_Cda">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_cda" EntitySet="formulaire_cda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Cfp" Association="Self.FK_IdDossier_Cfp">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_cfp" EntitySet="formulaire_cfp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Ecv" Association="Self.FK_IdDossier_Ecv">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_ecv" EntitySet="formulaire_ecv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Seo" Association="Self.FK_IdDossier_Seo">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_seo" EntitySet="formulaire_seo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Sfa" Association="Self.FK_IdDossier_Sfa">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_sfa" EntitySet="formulaire_sfa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedecinAppelantId" Association="Self.FK_MedecinAppelantId">
+            <End Role="appelant_medecins" EntitySet="appelant_medecins" />
+            <End Role="dossiers" EntitySet="dossiers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
+            <End Role="global_users" EntitySet="global_users" />
+            <End Role="dossiers" EntitySet="dossiers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="appelant_medecins" EntityType="Model.appelant_medecins" />
+          <EntitySet Name="dossiers" EntityType="Model.dossiers" />
+          <EntitySet Name="formulaire_act" EntityType="Model.formulaire_act" />
+          <EntitySet Name="formulaire_cda" EntityType="Model.formulaire_cda" />
+          <EntitySet Name="formulaire_cfp" EntityType="Model.formulaire_cfp" />
+          <EntitySet Name="formulaire_ecv" EntityType="Model.formulaire_ecv" />
+          <EntitySet Name="formulaire_seo" EntityType="Model.formulaire_seo" />
+          <EntitySet Name="formulaire_sfa" EntityType="Model.formulaire_sfa" />
+          <EntitySet Name="global_users" EntityType="Model.global_users" />
+          <AssociationSet Name="FK_MedecinAppelantId" Association="Model.FK_MedecinAppelantId">
+            <End Role="appelant_medecins" EntitySet="appelant_medecins" />
+            <End Role="dossiers" EntitySet="dossiers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Act" Association="Model.FK_IdDossier_Act">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_act" EntitySet="formulaire_act" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Cda" Association="Model.FK_IdDossier_Cda">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_cda" EntitySet="formulaire_cda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Cfp" Association="Model.FK_IdDossier_Cfp">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_cfp" EntitySet="formulaire_cfp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Ecv" Association="Model.FK_IdDossier_Ecv">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_ecv" EntitySet="formulaire_ecv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Seo" Association="Model.FK_IdDossier_Seo">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_seo" EntitySet="formulaire_seo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDossier_Sfa" Association="Model.FK_IdDossier_Sfa">
+            <End Role="dossiers" EntitySet="dossiers" />
+            <End Role="formulaire_sfa" EntitySet="formulaire_sfa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserId" Association="Model.FK_UserId">
+            <End Role="global_users" EntitySet="global_users" />
+            <End Role="dossiers" EntitySet="dossiers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="appelant_medecins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prenom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateNaissance" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Genre" Type="Boolean" Nullable="false" />
+          <Property Name="NumeroTelephonePortable" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumeroTelephoneFixe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TiersNom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TiersTelephone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TiersEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TiersLienParente" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_MedecinAppelantId" FromRole="appelant_medecins" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="dossiers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMedecinAppelant" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="NumeroAnonymatGlobal" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="appelant_medecins" Relationship="Model.FK_MedecinAppelantId" FromRole="dossiers" ToRole="appelant_medecins" />
+          <NavigationProperty Name="formulaire_act" Relationship="Model.FK_IdDossier_Act" FromRole="dossiers" ToRole="formulaire_act" />
+          <NavigationProperty Name="formulaire_cda" Relationship="Model.FK_IdDossier_Cda" FromRole="dossiers" ToRole="formulaire_cda" />
+          <NavigationProperty Name="formulaire_cfp" Relationship="Model.FK_IdDossier_Cfp" FromRole="dossiers" ToRole="formulaire_cfp" />
+          <NavigationProperty Name="formulaire_ecv" Relationship="Model.FK_IdDossier_Ecv" FromRole="dossiers" ToRole="formulaire_ecv" />
+          <NavigationProperty Name="formulaire_seo" Relationship="Model.FK_IdDossier_Seo" FromRole="dossiers" ToRole="formulaire_seo" />
+          <NavigationProperty Name="formulaire_sfa" Relationship="Model.FK_IdDossier_Sfa" FromRole="dossiers" ToRole="formulaire_sfa" />
+          <NavigationProperty Name="global_users" Relationship="Model.FK_UserId" FromRole="dossiers" ToRole="global_users" />
+        </EntityType>
+        <EntityType Name="formulaire_act">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDossier" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="DtDebutEntretien" Type="DateTime" Precision="3" />
+          <Property Name="DtFinEntretien" Type="DateTime" Precision="3" />
+          <Property Name="Dt1ErContactMaAccueil" Type="DateTime" Precision="3" />
+          <Property Name="Dt1ErContactMeMa" Type="DateTime" Precision="3" />
+          <Property Name="DtMeAccueil" Type="DateTime" Precision="3" />
+          <Property Name="Jour1ErContact" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DepartementExerciceMa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SuggestionAppelMots" Type="Int32" />
+          <Property Name="AutreSuggestionAppelMots" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CommentairesLibres" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPar1ErContactMaAccueil" Type="Int32" />
+          <Property Name="ContactPar1ErContactMeMa" Type="Int32" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_IdDossier_Act" FromRole="formulaire_act" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="formulaire_cda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDossier" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="MotifAppelInitial" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MotifAppelInitialAutre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProblematiqueComplementaire" Type="Boolean" />
+          <Property Name="TypeProblematiqueComplementaire" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeProblematiqueComplementaireAutre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Addictions" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AntecedentsPersonnels" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AntecedentsFamiliauxTa" Type="Boolean" />
+          <Property Name="CommentairesLibres" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_IdDossier_Cda" FromRole="formulaire_cda" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="formulaire_cfp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDossier" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="StatutCivil" Type="Int32" />
+          <Property Name="RevenusSeulsFoyer" Type="Boolean" />
+          <Property Name="PersonnesACharge" Type="Boolean" />
+          <Property Name="GrossesseEnCours" Type="Boolean" />
+          <Property Name="EnfantsMineurs" Type="Boolean" />
+          <Property Name="NombreEnfantsMineurs" Type="Int32" />
+          <Property Name="ExerciceProfessionnel" Type="Int32" />
+          <Property Name="PrecisionsExerciceProfessionnel" Type="Int32" />
+          <Property Name="FonctionHospitaliere" Type="Int32" />
+          <Property Name="Specialite" Type="Int32" />
+          <Property Name="NombreHeuresHebdoMoyen" Type="Int32" />
+          <Property Name="CongesAnnuels" Type="Int32" />
+          <Property Name="ActivitesFormation" Type="Boolean" />
+          <Property Name="SavoirDireNon" Type="Boolean" />
+          <Property Name="AutreMedecinTraitant" Type="Boolean" />
+          <Property Name="Automedication" Type="Boolean" />
+          <Property Name="SuiviDepistage" Type="Boolean" />
+          <Property Name="ActivitesLoisirs" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PrevoyanceAssurance" Type="Boolean" />
+          <Property Name="CarmfAJour" Type="Boolean" />
+          <Property Name="UrssafAJour" Type="Boolean" />
+          <Property Name="OrdreMedecinAJour" Type="Boolean" />
+          <Property Name="CommentairesLibres" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_IdDossier_Cfp" FromRole="formulaire_cfp" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="formulaire_ecv">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDossier" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="DtEvaluation" Type="DateTime" Precision="3" />
+          <Property Name="PriseTraitementPsychotrope" Type="Boolean" />
+          <Property Name="AutrePrescriptionPsychotropes" Type="Boolean" />
+          <Property Name="ContinuerPratiquerRythme" Type="Boolean" />
+          <Property Name="DtMbi" Type="DateTime" Precision="3" />
+          <Property Name="ScoreMbiEpuisementEmotionnel" Type="Int32" />
+          <Property Name="EpuisementEmotionnel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ScoreMbiDepersonnalisation" Type="Int32" />
+          <Property Name="Depersonnalisation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ScoreMbiAccomplissementPersonnel" Type="Int32" />
+          <Property Name="AccomplissementPersonnel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DtRud" Type="DateTime" Precision="3" />
+          <Property Name="NiveauRisqueRud" Type="Int32" />
+          <Property Name="EvaluationRisqueRud" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CommentairesLibres" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ActionsProposeesRud" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_IdDossier_Ecv" FromRole="formulaire_ecv" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="formulaire_seo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDossier" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="NumeroEntretien" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateEntretien" Type="DateTime" Precision="3" />
+          <Property Name="TypeEntretien" Type="Int32" />
+          <Property Name="DureeEntretien" Type="Int32" />
+          <Property Name="TravailConnexeEntretien" Type="Boolean" />
+          <Property Name="DureeDeplacement" Type="Int32" />
+          <Property Name="RechercheDocumentation" Type="Int32" />
+          <Property Name="ContactsExternesMots" Type="Int32" />
+          <Property Name="AutreTravailConnexe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AppelContactInterneMots" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MotifAppelContactInterneMots" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Orientations" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrientationAutre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ArretMaladiePreconise" Type="Boolean" />
+          <Property Name="CommentairesLibres" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_IdDossier_Seo" FromRole="formulaire_seo" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="formulaire_sfa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDossier" Type="Int32" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="DateBilanSynthese" Type="DateTime" Precision="3" />
+          <Property Name="DureeJourDepuis1ErContact" Type="Int32" />
+          <Property Name="NombreEntretiensDepuis1ErContact" Type="Int32" />
+          <Property Name="TempsTotalEnEntretiens" Type="Double" />
+          <Property Name="OrientationsMisesEnOeuvre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrientationsMisesEnOeuvreAutre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrientationsIdentifiees1ErEntretien" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CommentairesLibres" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_IdDossier_Sfa" FromRole="formulaire_sfa" ToRole="dossiers" />
+        </EntityType>
+        <EntityType Name="global_users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dossiers" Relationship="Model.FK_UserId" FromRole="global_users" ToRole="dossiers" />
+        </EntityType>
+        <Association Name="FK_MedecinAppelantId">
+          <End Type="Model.appelant_medecins" Role="appelant_medecins" Multiplicity="1" />
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="appelant_medecins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="dossiers">
+              <PropertyRef Name="IdMedecinAppelant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Act">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.formulaire_act" Role="formulaire_act" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_act">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Cda">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.formulaire_cda" Role="formulaire_cda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_cda">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Cfp">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.formulaire_cfp" Role="formulaire_cfp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_cfp">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Ecv">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.formulaire_ecv" Role="formulaire_ecv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_ecv">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Seo">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.formulaire_seo" Role="formulaire_seo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_seo">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDossier_Sfa">
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="1" />
+          <End Type="Model.formulaire_sfa" Role="formulaire_sfa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dossiers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="formulaire_sfa">
+              <PropertyRef Name="IdDossier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserId">
+          <End Type="Model.global_users" Role="global_users" Multiplicity="1" />
+          <End Type="Model.dossiers" Role="dossiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="global_users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="dossiers">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities" >
+          <EntitySetMapping Name="appelant_medecins">
+            <EntityTypeMapping TypeName="Model.appelant_medecins">
+              <MappingFragment StoreEntitySet="appelant_medecins">
+                <ScalarProperty Name="TiersLienParente" ColumnName="TiersLienParente" />
+                <ScalarProperty Name="TiersEmail" ColumnName="TiersEmail" />
+                <ScalarProperty Name="TiersTelephone" ColumnName="TiersTelephone" />
+                <ScalarProperty Name="TiersNom" ColumnName="TiersNom" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NumeroTelephoneFixe" ColumnName="NumeroTelephoneFixe" />
+                <ScalarProperty Name="NumeroTelephonePortable" ColumnName="NumeroTelephonePortable" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dossiers">
+            <EntityTypeMapping TypeName="Model.dossiers">
+              <MappingFragment StoreEntitySet="dossiers">
+                <ScalarProperty Name="NumeroAnonymatGlobal" ColumnName="NumeroAnonymatGlobal" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdMedecinAppelant" ColumnName="IdMedecinAppelant" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulaire_act">
+            <EntityTypeMapping TypeName="Model.formulaire_act">
+              <MappingFragment StoreEntitySet="formulaire_act">
+                <ScalarProperty Name="ContactPar1ErContactMeMa" ColumnName="ContactPar1ErContactMeMa" />
+                <ScalarProperty Name="ContactPar1ErContactMaAccueil" ColumnName="ContactPar1ErContactMaAccueil" />
+                <ScalarProperty Name="CommentairesLibres" ColumnName="CommentairesLibres" />
+                <ScalarProperty Name="AutreSuggestionAppelMots" ColumnName="AutreSuggestionAppelMots" />
+                <ScalarProperty Name="SuggestionAppelMots" ColumnName="SuggestionAppelMots" />
+                <ScalarProperty Name="DepartementExerciceMa" ColumnName="DepartementExerciceMa" />
+                <ScalarProperty Name="Jour1ErContact" ColumnName="Jour1ErContact" />
+                <ScalarProperty Name="DtMeAccueil" ColumnName="DtMeAccueil" />
+                <ScalarProperty Name="Dt1ErContactMeMa" ColumnName="Dt1ErContactMeMa" />
+                <ScalarProperty Name="Dt1ErContactMaAccueil" ColumnName="Dt1ErContactMaAccueil" />
+                <ScalarProperty Name="DtFinEntretien" ColumnName="DtFinEntretien" />
+                <ScalarProperty Name="DtDebutEntretien" ColumnName="DtDebutEntretien" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="IdDossier" ColumnName="IdDossier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulaire_cda">
+            <EntityTypeMapping TypeName="Model.formulaire_cda">
+              <MappingFragment StoreEntitySet="formulaire_cda">
+                <ScalarProperty Name="CommentairesLibres" ColumnName="CommentairesLibres" />
+                <ScalarProperty Name="AntecedentsFamiliauxTa" ColumnName="AntecedentsFamiliauxTa" />
+                <ScalarProperty Name="AntecedentsPersonnels" ColumnName="AntecedentsPersonnels" />
+                <ScalarProperty Name="Addictions" ColumnName="Addictions" />
+                <ScalarProperty Name="TypeProblematiqueComplementaireAutre" ColumnName="TypeProblematiqueComplementaireAutre" />
+                <ScalarProperty Name="TypeProblematiqueComplementaire" ColumnName="TypeProblematiqueComplementaire" />
+                <ScalarProperty Name="ProblematiqueComplementaire" ColumnName="ProblematiqueComplementaire" />
+                <ScalarProperty Name="MotifAppelInitialAutre" ColumnName="MotifAppelInitialAutre" />
+                <ScalarProperty Name="MotifAppelInitial" ColumnName="MotifAppelInitial" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="IdDossier" ColumnName="IdDossier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulaire_cfp">
+            <EntityTypeMapping TypeName="Model.formulaire_cfp">
+              <MappingFragment StoreEntitySet="formulaire_cfp">
+                <ScalarProperty Name="CommentairesLibres" ColumnName="CommentairesLibres" />
+                <ScalarProperty Name="OrdreMedecinAJour" ColumnName="OrdreMedecinAJour" />
+                <ScalarProperty Name="UrssafAJour" ColumnName="UrssafAJour" />
+                <ScalarProperty Name="CarmfAJour" ColumnName="CarmfAJour" />
+                <ScalarProperty Name="PrevoyanceAssurance" ColumnName="PrevoyanceAssurance" />
+                <ScalarProperty Name="ActivitesLoisirs" ColumnName="ActivitesLoisirs" />
+                <ScalarProperty Name="SuiviDepistage" ColumnName="SuiviDepistage" />
+                <ScalarProperty Name="Automedication" ColumnName="Automedication" />
+                <ScalarProperty Name="AutreMedecinTraitant" ColumnName="AutreMedecinTraitant" />
+                <ScalarProperty Name="SavoirDireNon" ColumnName="SavoirDireNon" />
+                <ScalarProperty Name="ActivitesFormation" ColumnName="ActivitesFormation" />
+                <ScalarProperty Name="CongesAnnuels" ColumnName="CongesAnnuels" />
+                <ScalarProperty Name="NombreHeuresHebdoMoyen" ColumnName="NombreHeuresHebdoMoyen" />
+                <ScalarProperty Name="Specialite" ColumnName="Specialite" />
+                <ScalarProperty Name="FonctionHospitaliere" ColumnName="FonctionHospitaliere" />
+                <ScalarProperty Name="PrecisionsExerciceProfessionnel" ColumnName="PrecisionsExerciceProfessionnel" />
+                <ScalarProperty Name="ExerciceProfessionnel" ColumnName="ExerciceProfessionnel" />
+                <ScalarProperty Name="NombreEnfantsMineurs" ColumnName="NombreEnfantsMineurs" />
+                <ScalarProperty Name="EnfantsMineurs" ColumnName="EnfantsMineurs" />
+                <ScalarProperty Name="GrossesseEnCours" ColumnName="GrossesseEnCours" />
+                <ScalarProperty Name="PersonnesACharge" ColumnName="PersonnesACharge" />
+                <ScalarProperty Name="RevenusSeulsFoyer" ColumnName="RevenusSeulsFoyer" />
+                <ScalarProperty Name="StatutCivil" ColumnName="StatutCivil" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="IdDossier" ColumnName="IdDossier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulaire_ecv">
+            <EntityTypeMapping TypeName="Model.formulaire_ecv">
+              <MappingFragment StoreEntitySet="formulaire_ecv">
+                <ScalarProperty Name="ActionsProposeesRud" ColumnName="ActionsProposeesRud" />
+                <ScalarProperty Name="CommentairesLibres" ColumnName="CommentairesLibres" />
+                <ScalarProperty Name="EvaluationRisqueRud" ColumnName="EvaluationRisqueRud" />
+                <ScalarProperty Name="NiveauRisqueRud" ColumnName="NiveauRisqueRud" />
+                <ScalarProperty Name="DtRud" ColumnName="DtRud" />
+                <ScalarProperty Name="AccomplissementPersonnel" ColumnName="AccomplissementPersonnel" />
+                <ScalarProperty Name="ScoreMbiAccomplissementPersonnel" ColumnName="ScoreMbiAccomplissementPersonnel" />
+                <ScalarProperty Name="Depersonnalisation" ColumnName="Depersonnalisation" />
+                <ScalarProperty Name="ScoreMbiDepersonnalisation" ColumnName="ScoreMbiDepersonnalisation" />
+                <ScalarProperty Name="EpuisementEmotionnel" ColumnName="EpuisementEmotionnel" />
+                <ScalarProperty Name="ScoreMbiEpuisementEmotionnel" ColumnName="ScoreMbiEpuisementEmotionnel" />
+                <ScalarProperty Name="DtMbi" ColumnName="DtMbi" />
+                <ScalarProperty Name="ContinuerPratiquerRythme" ColumnName="ContinuerPratiquerRythme" />
+                <ScalarProperty Name="AutrePrescriptionPsychotropes" ColumnName="AutrePrescriptionPsychotropes" />
+                <ScalarProperty Name="PriseTraitementPsychotrope" ColumnName="PriseTraitementPsychotrope" />
+                <ScalarProperty Name="DtEvaluation" ColumnName="DtEvaluation" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="IdDossier" ColumnName="IdDossier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulaire_seo">
+            <EntityTypeMapping TypeName="Model.formulaire_seo">
+              <MappingFragment StoreEntitySet="formulaire_seo">
+                <ScalarProperty Name="CommentairesLibres" ColumnName="CommentairesLibres" />
+                <ScalarProperty Name="ArretMaladiePreconise" ColumnName="ArretMaladiePreconise" />
+                <ScalarProperty Name="OrientationAutre" ColumnName="OrientationAutre" />
+                <ScalarProperty Name="Orientations" ColumnName="Orientations" />
+                <ScalarProperty Name="MotifAppelContactInterneMots" ColumnName="MotifAppelContactInterneMots" />
+                <ScalarProperty Name="AppelContactInterneMots" ColumnName="AppelContactInterneMots" />
+                <ScalarProperty Name="AutreTravailConnexe" ColumnName="AutreTravailConnexe" />
+                <ScalarProperty Name="ContactsExternesMots" ColumnName="ContactsExternesMots" />
+                <ScalarProperty Name="RechercheDocumentation" ColumnName="RechercheDocumentation" />
+                <ScalarProperty Name="DureeDeplacement" ColumnName="DureeDeplacement" />
+                <ScalarProperty Name="TravailConnexeEntretien" ColumnName="TravailConnexeEntretien" />
+                <ScalarProperty Name="DureeEntretien" ColumnName="DureeEntretien" />
+                <ScalarProperty Name="TypeEntretien" ColumnName="TypeEntretien" />
+                <ScalarProperty Name="DateEntretien" ColumnName="DateEntretien" />
+                <ScalarProperty Name="NumeroEntretien" ColumnName="NumeroEntretien" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="IdDossier" ColumnName="IdDossier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulaire_sfa">
+            <EntityTypeMapping TypeName="Model.formulaire_sfa">
+              <MappingFragment StoreEntitySet="formulaire_sfa">
+                <ScalarProperty Name="CommentairesLibres" ColumnName="CommentairesLibres" />
+                <ScalarProperty Name="OrientationsIdentifiees1ErEntretien" ColumnName="OrientationsIdentifiees1ErEntretien" />
+                <ScalarProperty Name="OrientationsMisesEnOeuvreAutre" ColumnName="OrientationsMisesEnOeuvreAutre" />
+                <ScalarProperty Name="OrientationsMisesEnOeuvre" ColumnName="OrientationsMisesEnOeuvre" />
+                <ScalarProperty Name="TempsTotalEnEntretiens" ColumnName="TempsTotalEnEntretiens" />
+                <ScalarProperty Name="NombreEntretiensDepuis1ErContact" ColumnName="NombreEntretiensDepuis1ErContact" />
+                <ScalarProperty Name="DureeJourDepuis1ErContact" ColumnName="DureeJourDepuis1ErContact" />
+                <ScalarProperty Name="DateBilanSynthese" ColumnName="DateBilanSynthese" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="IdDossier" ColumnName="IdDossier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="global_users">
+            <EntityTypeMapping TypeName="Model.global_users">
+              <MappingFragment StoreEntitySet="global_users">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

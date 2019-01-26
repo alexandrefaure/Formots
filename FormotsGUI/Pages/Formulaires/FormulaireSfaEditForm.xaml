@@ -1,0 +1,184 @@
+﻿<controls:MetroWindow x:Class="FormotsGUI.Pages.Formulaires.FormulaireSfaEditForm"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:utils="clr-namespace:FormotsCommon.Utils;assembly=FormotsCommon"
+                      xmlns:formulaires="clr-namespace:FormotsGUI.ViewModels.Formulaires"
+                      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                      xmlns:userControls="clr-namespace:FormotsGUI.UserControls"
+                      dialogs:DialogParticipation.Register="{Binding}"
+                      mc:Ignorable="d"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+                      WindowStartupLocation="CenterScreen"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      Width="Auto" Height="Auto"
+                      SizeToContent="Height"
+                      Title="{Binding WindowTitle}"
+                      Name="Formulaire_SFA_Window" d:DesignWidth="961.5">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <formulaires:FormulaireActEditFormViewModel x:Key="vm" />
+            <!--<utils:BoolInverterConverter x:Key="BoolInverterConverter" />-->
+            <!--<utils:IsNullToBoolConverter x:Key="IsNullToBoolConverter" />-->
+
+            <utils:BoolInverterConverter x:Key="BoolRadioConverter" />
+            <utils:BoolInverterConverter x:Key="InverseBoolRadioConverter" Inverse="True" />
+
+            <Style BasedOn="{StaticResource CheckComboboxStyle}" TargetType="xctk:CheckComboBox" />
+            <!--Permet d'appliquer le style des DateTimePicker par défault défini dans App.xaml-->
+            <Style BasedOn="{StaticResource DateTimePickerStyle}" TargetType="controls:DateTimePicker" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Background="{DynamicResource ValidationBrush2}">
+        <GroupBox>
+            <Grid
+                Margin="10 10 10 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Date du bilan" />
+                <controls:DateTimePicker
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    SelectedDate="{Binding Formulaire.DateBilanSynthese,
+                    StringFormat='dd/MM/yyyy HH:mm:ss'}"
+                    Margin="10 10 30 10" />
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalAlignment="Center"
+                           Text="Durée depuis 1er contact (jours)" />
+                <TextBox Grid.Row="0"
+                         Grid.Column="3"
+                         IsEnabled="False"
+                         Text="{Binding Formulaire.DureeJourDepuis1ErContact}"
+                         Margin="10 10 30 10" />
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Nombre d'entretiens depuis 1er contact" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         IsEnabled="False"
+                         Text="{Binding Formulaire.NombreEntretiensDepuis1ErContact}"
+                         Margin="10 10 30 10" />
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="2"
+                           VerticalAlignment="Center"
+                           Text="Temps total passé en entretiens (heures)" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="3"
+                         IsEnabled="False"
+                         Text="{Binding Formulaire.TempsTotalEnEntretiens}"
+                         Margin="10 10 30 10" />
+
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Orientations mises en oeuvre" />
+                <xctk:CheckComboBox Margin="10 10 30 10"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    ItemsSource="{Binding OrientationsMisesEnOeuvreList}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    DisplayMemberPath="Value"
+                                    ValueMemberPath="Key"
+                                    SelectedValue="{Binding Formulaire.OrientationsMisesEnOeuvre, 
+                    UpdateSourceTrigger=PropertyChanged, 
+                    Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding Formulaire.IsOrientationsMisesEnOeuvreAutreVisible}"
+                           Text="Autre orientation" />
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="3"
+                         Visibility="{Binding Formulaire.IsOrientationsMisesEnOeuvreAutreVisible}"
+                         Text="{Binding Formulaire.OrientationsMisesEnOeuvreAutre}"
+                         Margin="10 10 30 10" />
+                
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Préconisations identifiées" />
+                <TextBox Grid.Row="4"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="3"
+                         IsEnabled="False"
+                         Text="{Binding Formulaire.OrientationsIdentifiees1ErEntretien}"
+                         Margin="10 10 30 10" />
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Commentaires libres / Notes confidentielles" />
+                <TextBox Grid.Row="5"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="3"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Text="{Binding Formulaire.CommentairesLibres}"
+                         Margin="10 10 30 10"/>
+            </Grid>
+        </GroupBox>
+
+        <!--Boutons de sauvegarde et d'annulation-->
+        <WrapPanel Margin="5 20"
+                   HorizontalAlignment="Center">
+            <Button Name="SaveUserButton"
+                    Width="100"
+                    Margin="0 5 0 5"
+                    Visibility="{Binding IsSaveUserButtonVisible}"
+                    Command="{Binding SaveFormulaireCommand}"
+                    CommandParameter="{Binding ElementName=Formulaire_SFA_Window}">
+                <StackPanel Orientation="Horizontal">
+                    <Label Padding="0">Enregistrer</Label>
+                    <Image Margin="{StaticResource IconMargin}"
+                           Width="{StaticResource IconButtonSize}"
+                           Source="{StaticResource SaveIcon}" />
+                </StackPanel>
+            </Button>
+            <Button Width="100"
+                    Margin="10 5 0 5"
+                    Command="{Binding CancelFormulaireCommand}"
+                    CommandParameter="{Binding ElementName=Formulaire_SFA_Window}">
+                <StackPanel Orientation="Horizontal">
+                    <Label Padding="0">Fermer</Label>
+                    <Image Margin="{StaticResource IconMargin}"
+                           Width="{StaticResource IconButtonSize}"
+                           Source="{StaticResource CancelIcon}" />
+                </StackPanel>
+            </Button>
+        </WrapPanel>
+    </StackPanel>
+    </ScrollViewer>
+</controls:MetroWindow>

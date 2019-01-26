@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5b8a3951769248979403d4cfc67140d0" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model.appelant_medecins" Width="1.5" PointX="0.75" PointY="15.75" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.dossiers" Width="1.5" PointX="3" PointY="15.875" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.formulaire_act" Width="1.5" PointX="5.25" PointY="13.375" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.formulaire_cda" Width="1.5" PointX="5.25" PointY="22.25" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.formulaire_cfp" Width="1.5" PointX="5.25" PointY="26.625" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.formulaire_ecv" Width="1.5" PointX="5.25" PointY="7.75" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.formulaire_seo" Width="1.5" PointX="5.25" PointY="2.375" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.formulaire_sfa" Width="1.5" PointX="5.25" PointY="18.25" FillColor="DarkRed" />
+        <EntityTypeShape EntityType="Model.global_users" Width="1.5" PointX="0.75" PointY="12.5" FillColor="DarkRed" />
+        <AssociationConnector Association="Model.FK_MedecinAppelantId" />
+        <AssociationConnector Association="Model.FK_IdDossier_Act" />
+        <AssociationConnector Association="Model.FK_IdDossier_Cda" />
+        <AssociationConnector Association="Model.FK_IdDossier_Cfp" />
+        <AssociationConnector Association="Model.FK_IdDossier_Ecv" />
+        <AssociationConnector Association="Model.FK_IdDossier_Seo" />
+        <AssociationConnector Association="Model.FK_IdDossier_Sfa" />
+        <AssociationConnector Association="Model.FK_UserId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

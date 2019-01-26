@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="FormotsGUI.Pages.Statistiques.ChartsListForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:userControls="clr-namespace:FormotsGUI.UserControls"
+             mc:Ignorable="d"
+             Background="{DynamicResource ValidationBrush2}"
+             d:DesignHeight="455.253" d:DesignWidth="608.171">
+    <!--<UserControl.Resources>
+        <ResourceDictionary>
+            <viewmodel:DossiersPageViewModel x:Key="vm" />
+        </ResourceDictionary>
+    </UserControl.Resources>-->
+
+    <DockPanel Margin="20 0">
+        <userControls:ValidateListPanel
+            DockPanel.Dock="Top"
+            LabelName="Gestion des Graphiques"
+            GenerateCommand="{Binding GenerateChartCommand}"/>
+        <ListBox DockPanel.Dock="Top"
+                 Margin="0 5 5 5"
+                 DisplayMemberPath="ChartTitle"
+                 ItemsSource="{Binding ChartsDtoList}"
+                 SelectedValue="{Binding SelectedChart}"
+                 SelectedIndex="0"
+                 VerticalContentAlignment="Stretch"
+                 MouseDoubleClick="Control_OnMouseDoubleClick">
+        </ListBox>
+    </DockPanel>
+</UserControl>

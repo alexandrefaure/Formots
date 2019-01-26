@@ -1,0 +1,190 @@
+﻿<controls:MetroWindow x:Class="FormotsGUI.Windows.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                      xmlns:viewModels="clr-namespace:FormotsGUI.ViewModels"
+                      xmlns:pages="clr-namespace:FormotsGUI.Pages"
+                      WindowState="Maximized"
+                      Name="FormotsMainWindow"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:medecinAppelant="clr-namespace:FormotsGUI.Pages.MedecinAppelant"
+                      xmlns:dossier="clr-namespace:FormotsGUI.Pages.Dossier"
+                      xmlns:users="clr-namespace:FormotsGUI.ViewModels.Users"
+                      xmlns:users1="clr-namespace:FormotsGUI.Pages.Users"
+                      xmlns:medecinAppelants="clr-namespace:FormotsGUI.ViewModels.MedecinAppelants"
+                      xmlns:statistiquesVm="clr-namespace:FormotsGUI.ViewModels.Statistiques"
+                      xmlns:dossiers="clr-namespace:FormotsGUI.ViewModels.Dossiers"
+                      Icon="../formotsLogo32.ico"
+                      ShowIconOnTitleBar="True"
+                      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:messaging="clr-namespace:System.Runtime.Remoting.Messaging;assembly=mscorlib"
+                      xmlns:statistiques="clr-namespace:FormotsGUI.Pages.Statistiques"
+                      Dialog:DialogParticipation.Register="{Binding}"
+                      Title="MOTS">
+
+    <!--Ressources Windows-->
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AppThemeMenuItemStyle"
+                   BasedOn="{StaticResource MetroMenuItem}"
+                   TargetType="{x:Type MenuItem}">
+                <Setter Property="Command" Value="{Binding ChangeAccentCommand}" />
+                <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+                <Setter Property="Icon" Value="{StaticResource AppThemeMenuIcon}" />
+            </Style>
+
+            <Style x:Key="AccentColorMenuItemStyle"
+                   BasedOn="{StaticResource MetroMenuItem}"
+                   TargetType="{x:Type MenuItem}">
+                <Setter Property="Command" Value="{Binding ChangeAccentCommand}" />
+                <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
+                <Setter Property="Icon" Value="{StaticResource AccentMenuIcon}" />
+            </Style>
+
+            <!--Data templates-->
+            <DataTemplate DataType="{x:Type viewModels:DashboardPageViewModel}">
+                <pages:DashboardPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type users:UsersListFormViewModel}">
+                <users1:UsersListForm />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type medecinAppelants:MedecinAppelantsListFormViewModel}">
+                <medecinAppelant:MedecinAppelantsListForm />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type dossiers:DossiersListFormViewModel}">
+                <dossier:DossiersListForm />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type statistiquesVm:ChartsListFormViewModel}">
+                <statistiques:ChartsListForm/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="CloseCommandHandler"/>
+    </Window.CommandBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="1">
+            <Fluent:Ribbon DockPanel.Dock="Top">
+
+                <!--Backstage-->
+                <Fluent:Ribbon.Menu>
+                    <Fluent:Backstage Background="{DynamicResource AccentColorBrush}">
+                        <Fluent:BackstageTabControl>
+                            <Fluent:BackstageTabItem Header="Paramètres">
+                                <pages:SettingsPage />
+                            </Fluent:BackstageTabItem>
+                            <Fluent:BackstageTabItem Header="A propos">
+                                <pages:AboutPage/>
+                            </Fluent:BackstageTabItem>
+                            <Fluent:Button Name="ExitButton"
+                                           Header="Quitter"
+                                           Icon="{StaticResource PlusIcon}"
+                                           Command="ApplicationCommands.Close"/>
+                        </Fluent:BackstageTabControl>
+                    </Fluent:Backstage>
+                </Fluent:Ribbon.Menu>
+
+                <!--Tabs-->
+                <!--ACCUEIL-->
+                <Fluent:RibbonTabItem Header="Accueil">
+                    <Fluent:RibbonGroupBox Header="Accueil">
+                        <Fluent:Button Name="DashboardButton"
+                                       Header="Tableau de bord"
+                                       Width="80"
+                                       Icon="{StaticResource HomeIcon}"
+                                       LargeIcon="{StaticResource HomeIcon}"
+                                       Command="{Binding OpenDashboardPageCommand}" />
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Paramètres"
+                                           Margin="10 0 0 0">
+                        <Fluent:Button Name="UsersButton"
+                                       Header="Utilisateurs (ME)"
+                                       Width="80"
+                                       Icon="{StaticResource TeamIcon}"
+                                       LargeIcon="{StaticResource TeamIcon}"
+                                       Command="{Binding OpenUsersPageCommand}" />
+                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonTabItem>
+
+                <!--DOSSIERS-->
+                <Fluent:RibbonTabItem Header="Dossier">
+                    <Fluent:RibbonGroupBox Header="Dossiers"
+                                           Margin="10 0 0 0">
+                        <Fluent:Button Name="DossierButton"
+                                       Margin="0 0 0 0"
+                                       Width="80"
+                                       Header="Dossier"
+                                       Icon="{StaticResource FolderIcon}"
+                                       LargeIcon="{StaticResource FolderIcon}"
+                                       Command="{Binding OpenDossiersPageCommand}" />
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Appelants">
+                        <!--<Fluent:Button Name="TierAppelantButton"
+                                       Margin="10 0 10 0"
+                                       Width="80"
+                                       Header="Tier (TA)"
+                                       Icon="{StaticResource ManIcon}"
+                                       LargeIcon="{StaticResource ManIcon}"
+                                       Command="{Binding OpenUsersPageCommand}" />-->
+                        <Fluent:Button Name="MedecinAppelantButton"
+                                       Margin="0 0 10 0"
+                                       Width="80"
+                                       Header="Médecin (MA)"
+                                       Icon="{StaticResource DoctorIcon}"
+                                       LargeIcon="{StaticResource DoctorIcon}"
+                                       Command="{Binding OpenMedecinAppelantsPageCommand}" />
+                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonTabItem>
+                <!--<Fluent:RibbonTabItem Header="Formulaires">
+                    <Fluent:RibbonGroupBox Header="Formulaires">
+                        <Fluent:Button Name="Formulaire1Button"
+                                       Header="Formulaire 1"
+                                       Margin="0 0 0 0"
+                                       Width="80"
+                                       Icon="{StaticResource TeamIcon}"
+                                       LargeIcon="{StaticResource TeamIcon}"
+                                       Command="{Binding OpenUsersPageCommand}" />
+                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonTabItem>-->
+                <Fluent:RibbonTabItem Header="Statistiques">
+                    <Fluent:RibbonGroupBox Header="Statistiques"
+                                       Margin="10 0 0 0">
+                    <Fluent:Button Name="GraphiquesButton"
+                                   Margin="0 0 0 0"
+                                   Width="80"
+                                   Header="Graphiques"
+                                   Icon="{StaticResource ChartsIcon}"
+                                   LargeIcon="{StaticResource ChartsIcon}"
+                                   Command="{Binding OpenStatisticsPageCommand}" />
+                </Fluent:RibbonGroupBox>
+                </Fluent:RibbonTabItem>
+            </Fluent:Ribbon>
+
+            <ContentControl x:Name="Pages"
+                            Content="{Binding SelectedViewModel}" />
+        </DockPanel>
+        <StatusBar Grid.Row="2"
+                   DockPanel.Dock="Bottom">
+            <StatusBarItem>MOTS</StatusBarItem>
+            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+            <StatusBarItem>V3.0</StatusBarItem>
+            <!--<StatusBarItem>Selected Tab:</StatusBarItem>
+            <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />-->
+        </StatusBar>
+    </Grid>
+
+
+</controls:MetroWindow>

@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="FormotsGUI.Pages.Dossier.DossiersListForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:userControls="clr-namespace:FormotsGUI.UserControls"
+             mc:Ignorable="d"
+             Background="{DynamicResource ValidationBrush2}"
+             d:DesignHeight="455.253" d:DesignWidth="608.171">
+    <!--<UserControl.Resources>
+        <ResourceDictionary>
+            <viewmodel:DossiersPageViewModel x:Key="vm" />
+        </ResourceDictionary>
+    </UserControl.Resources>-->
+
+    <DockPanel Margin="20 0">
+        <userControls:SearchListPanel
+            DockPanel.Dock="Top"
+            LabelName="Gestion des Dossiers"
+            EditCommand="{Binding EditCommand}"
+            AddCommand="{Binding AddCommand}"
+            DeleteCommand="{Binding DeleteCommand}" />
+        <GroupBox DockPanel.Dock="Top" Margin="0 5 0 5">
+            <WrapPanel Margin="0 10 0 10">
+                <Label Content="Rechercher par Nom :" />
+                <TextBox Margin="10 0 0 0"
+                         Text="{Binding SearchMedecinAppelantTextbox, 
+                Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}"
+                         Width="164" />
+            </WrapPanel>
+        </GroupBox>
+        <DataGrid Visibility="{Binding IsGridVisible}"
+            DockPanel.Dock="Top"
+                  ItemsSource="{Binding DossiersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectedValue="{Binding SelectedDossier}"
+                  CanUserAddRows="false"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto">
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCommand}"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Numéro dossier" Binding="{Binding NumeroAnonymatGlobal}" />
+                <DataGridTextColumn Width="*" Header="Nom" Binding="{Binding MedecinAppelantDto.Nom}" />
+                <DataGridTextColumn Width="*" Header="Prénom" Binding="{Binding MedecinAppelantDto.Prenom}" />
+                <DataGridTextColumn Width="*" Header="Date de naissance"
+                                    Binding="{Binding MedecinAppelantDto.DateNaissance, StringFormat=dd/MM/yyyy}" />
+                <DataGridTextColumn Width="*" Header="Nombre de formulaires" Binding="{Binding FormulairesCount}" />
+                <DataGridTextColumn Width="*" Header="Suivi par" Binding="{Binding UserDto.Login}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <controls:ProgressRing DockPanel.Dock="Top" IsActive="{Binding ShowProgressBar}" />
+    </DockPanel>
+</UserControl>
